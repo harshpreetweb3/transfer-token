@@ -12,8 +12,15 @@ pub struct MintToken<'info> {
     pub mint_authority: Signer<'info>,
 
     pub recipient: SystemAccount<'info>,
-    #[account(mut)]
+
+    #[account(
+        mut,
+        seeds = [b"mintaccount"],
+        bump
+    )]
+
     pub mint_account: Account<'info, Mint>,
+
     #[account(
         init_if_needed,
         payer = mint_authority,

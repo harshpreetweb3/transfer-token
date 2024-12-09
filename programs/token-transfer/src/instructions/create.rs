@@ -16,6 +16,8 @@ pub struct CreateToken<'info> {
 
     #[account(
         init,
+        seeds = [b"mintaccount"],
+        bump,
         payer = payer,
         mint::decimals = 9,
         mint::authority = payer.key(),
@@ -24,7 +26,17 @@ pub struct CreateToken<'info> {
     )]
     pub mint_account: Account<'info, Mint>,
 
+    //apa ne bump store v krwaya c counter vich, jide nal apa counter account access krde c
+    //pr athe apa bump store nhi kr rhe han
+    //             ->
+    //ta mint account kiddaan access hove ga 
+    //             ->
+    //pr nhi everything is possible
+
+    //pr apna devnet te deploy kr lene aa pehla bro G
+
     /// CHECK: Validate address by deriving pda
+    
     #[account(
         mut,
         seeds = [b"metadata", token_metadata_program.key().as_ref(), mint_account.key().as_ref()],
